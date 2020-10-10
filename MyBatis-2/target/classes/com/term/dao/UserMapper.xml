@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.term.dao.UserDao">
+
+    <!--映射结果集-->
+    <!--<resultMap id="userMap" type="com.term.model.User">
+        &lt;!&ndash;自定义映射关系，column是字段名，property对应属性名&ndash;&gt;
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="password"/>
+    </resultMap>-->
+    <select id="getAllUsers" resultType="user">
+        select * from user
+    </select>
+    <update id="updateUser" parameterType="com.term.model.User">
+        update user set name=#{name},pwd=#{pwd} where id=#{id}
+    </update>
+    <insert id="addUser" parameterType="com.term.model.User">
+        insert into user (id,name,pwd) values (#{id},#{name},#{pwd})
+    </insert>
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <select id="getOneUser" parameterType="map" resultType="com.term.model.User">
+        select * from user where id=#{id}
+    </select>
+    <select id="getUsersByNameLike" parameterType="String" resultType="com.term.model.User">
+        select * from user where name like #{name}
+    </select>
+
+    <select id="getUsersByLimit" parameterType="map" resultType="user">
+        select * from user limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getUsersByRowBounds" resultType="user">
+        select * from user
+    </select>
+</mapper>
