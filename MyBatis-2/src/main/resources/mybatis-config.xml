@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入外部配置文件
+    注意：在定义这些变量的时候，尽量避免一些系统变量，会出错的。比如username，这个代表操作系统的用户名。
+    -->
+    <!--### 注意当使用外部配置文件的时候，不需要将 & 符号转译成 &amp; ,否则会失效-->
+    <properties resource="db.properties"/>
+    <!--设置-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!-- 设置别名 -->
+    <typeAliases>
+        <!-- 默认包下的所有类别名为首字母小写 -->
+        <package name="com.term.model"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--类和配置文件，只需要注册一个mapper，不然会抛异常-->
+        <mapper resource="com/term/dao/UserMapper.xml"/>
+        <mapper resource="com/term/dao/StudentMapper.xml"/>
+        <mapper resource="com/term/dao/TeacherMapper.xml"/>
+        <mapper resource="com/term/dao/BlogMapper.xml"/>
+        <!--<mapper class="com.term.dao.UserDao" />-->
+    </mappers>
+
+
+</configuration>
