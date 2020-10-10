@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.term.dao.BlogMapper">
+    <select id="selectBlogByIf" resultType="com.term.model.Blog">
+        select * from blog where 1=1
+        <if test="title != null">
+            and title=#{title}
+        </if>
+        <if test="author != null">
+            and author=#{author}
+        </if>
+    </select>
+    <select id="selectBlogByWhen" resultType="com.term.model.Blog">
+        select * from blog where 1=1
+        <choose>
+            <when test="title != null">
+                and title=#{title}
+            </when>
+            <when test="author != null">
+                and author=#{author}
+            </when>
+        </choose>
+    </select>
+
+</mapper>
